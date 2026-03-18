@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch – Demon Slayer S4 Ep 12 | AniStream</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/videoplayscss.css">
+</head>
+<body>
+
+  <!-- ════ NAVBAR ════ -->
+  <nav>
+    <a href="index.html" class="logo">Ani<span>Stream</span></a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="#">Movies</a>
+      <a href="#">TV Series</a>
+      <a href="#">Schedule</a>
+    </div>
+    <div class="nav-search">
+      <input type="text" placeholder="Search anime..." />
+      <button>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </div>
+    <div class="nav-right">
+      <button class="btn-nav btn-login">Log In</button>
+      <button class="btn-nav btn-signup">Sign Up</button>
+    </div>
+  </nav>
+
+  <!-- ════ BREADCRUMB ════ -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="bc-sep">›</span>
+    <a href="#">Demon Slayer: Kimetsu no Yaiba</a>
+    <span class="bc-sep">›</span>
+    <span>Season 4 – Episode 12</span>
+  </div>
+
+  <!-- ════ WATCH LAYOUT ════ -->
+  <div class="watch-layout">
+
+    <!-- ══ LEFT: Player + Info ══ -->
+    <div class="watch-main">
+
+      <!-- VIDEO PLAYER -->
+      <div class="player-wrap" id="player">
+        <div class="player-bg"></div>
+
+        <!-- Top HUD -->
+        <div class="player-top">
+          <div>
+            <div class="player-ep-label">Episode 12 – "A Connected Bond: Daybreak and First Light"</div>
+            <div class="player-anime-title">Demon Slayer: Kimetsu no Yaiba – Hashira Training Arc</div>
+          </div>
+        </div>
+
+        <!-- Center play button -->
+        <div class="player-center-btn">
+          <button class="big-play" id="playBtn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+        </div>
+
+        <!-- Skip intro / outro -->
+        <div class="skip-btns">
+          <button class="skip-btn" id="skipIntro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,4 15,12 5,20"/><line x1="19" y1="4" x2="19" y2="20"/></svg>
+            Skip Intro
+          </button>
+          <button class="skip-btn" id="skipOutro" style="display:none;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,4 15,12 5,20"/><line x1="19" y1="4" x2="19" y2="20"/></svg>
+            Next Ep
+          </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="player-controls">
+          <!-- Progress -->
+          <div class="progress-wrap" id="progress">
+            <div class="progress-buffered"></div>
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <!-- Control row -->
+          <div class="ctrl-row">
+            <!-- Prev -->
+            <button class="ctrl-btn" title="Previous Episode">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="19,20 9,12 19,4"/><rect x="5" y="4" width="3" height="16" rx="1"/></svg>
+            </button>
+            <!-- Play/Pause -->
+            <button class="ctrl-btn" id="ctrlPlay" title="Play/Pause">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            </button>
+            <!-- Next -->
+            <button class="ctrl-btn" title="Next Episode">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,4 15,12 5,20"/><rect x="16" y="4" width="3" height="16" rx="1"/></svg>
+            </button>
+            <!-- Time -->
+            <span class="ctrl-time" id="ctrlTime">10:35 / 24:03</span>
+            <!-- Volume -->
+            <div class="volume-wrap">
+              <button class="ctrl-btn" title="Mute">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <input type="range" class="volume-slider" min="0" max="100" value="80" />
+            </div>
+            <div class="ctrl-spacer"></div>
+            <!-- Sub/Dub toggle -->
+            <div class="player-sub-toggle">
+              <button class="sub-opt active" onclick="setSubDub(this,'sub')">SUB</button>
+              <button class="sub-opt" onclick="setSubDub(this,'dub')">DUB</button>
+            </div>
+            <!-- Quality -->
+            <button class="quality-btn">1080p</button>
+            <!-- Settings -->
+            <button class="ctrl-btn" title="Settings">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+            <!-- Fullscreen -->
+            <button class="ctrl-btn" title="Fullscreen" id="fsBtn">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BELOW PLAYER INFO -->
+      <div class="below-player">
+        <div class="anime-header">
+          <div>
+            <div class="anime-title-main">Demon Slayer: Kimetsu no Yaiba</div>
+            <div class="anime-title-sub">Season 4 · Episode 12 – "A Connected Bond: Daybreak and First Light"</div>
+          </div>
+          <div class="action-btns">
+            <button class="act-btn" id="likeBtn" onclick="toggleLike(this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Add to List
+            </button>
+            <button class="act-btn" onclick="this.classList.toggle('liked')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16,6 12,2 8,6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              Share
+            </button>
+            <button class="act-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Download
+            </button>
+          </div>
+        </div>
+        <div class="anime-meta-row">
+          <span class="meta-badge mb-tv">TV</span>
+          <span class="meta-badge mb-sub">SUB</span>
+          <span class="meta-badge mb-dub">DUB</span>
+          <span class="meta-badge mb-score">★ 9.1</span>
+          <div class="mdot"></div>
+          <span>2024</span>
+          <div class="mdot"></div>
+          <span>Action, Fantasy, Supernatural</span>
+          <div class="mdot"></div>
+          <span>24 min/ep</span>
+          <div class="mdot"></div>
+          <span style="color:var(--accent);">12 / 12 eps</span>
+        </div>
+      </div>
+
+      <!-- SERVER SELECTION -->
+      <div class="server-section">
+        <div class="server-row">
+          <span class="server-label">Servers (Sub):</span>
+          <button class="server-btn active"><span class="server-dot"></span> Vidstreaming</button>
+          <button class="server-btn"><span class="server-dot"></span> Vidcloud</button>
+          <button class="server-btn"><span class="server-dot"></span> StreamSB</button>
+          <button class="server-btn"><span class="server-dot"></span> Filemoon</button>
+        </div>
+        <div class="server-row">
+          <span class="server-label">Servers (Dub):</span>
+          <button class="server-btn"><span class="server-dot"></span> Vidstreaming</button>
+          <button class="server-btn"><span class="server-dot"></span> Vidcloud</button>
+        </div>
+      </div>
+
+      <!-- EPISODE LIST -->
+      <div class="ep-section">
+        <div class="ep-section-header">
+          <div class="ep-section-title">Episodes</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select class="ep-range-select">
+              <option>Season 4 (Hashira Training Arc)</option>
+              <option>Season 3 (Swordsmith Village Arc)</option>
+              <option>Season 2 (Entertainment District Arc)</option>
+              <option>Season 1</option>
+            </select>
+            <div class="view-toggle">
+              <button class="view-btn active" id="gridViewBtn" onclick="setView('grid',this)" title="Grid view">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </button>
+              <button class="view-btn" id="listViewBtn" onclick="setView('list',this)" title="List view">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="ep-search">
+          <span>🔍</span>
+          <input type="text" placeholder="Search episode title..." />
+        </div>
+        <div id="ep-grid" class="ep-grid"></div>
+        <div id="ep-list" class="ep-list-view" style="display:none;"></div>
+      </div>
+
+    </div><!-- end watch-main -->
+
+    <!-- ══ RIGHT: Sidebar ══ -->
+    <aside class="watch-sidebar">
+      <div class="sidebar-tabs">
+        <button class="stab active" onclick="switchTab(this,'related')">Related</button>
+        <button class="stab" onclick="switchTab(this,'comments')">Comments</button>
+        <button class="stab" onclick="switchTab(this,'info')">Info</button>
+      </div>
+
+      <!-- RELATED -->
+      <div class="stab-content active" id="tab-related">
+        <div class="rec-list" id="rec-list"></div>
+      </div>
+
+      <!-- COMMENTS -->
+      <div class="stab-content" id="tab-comments">
+        <div class="comments-area">
+          <div class="comment-input-wrap">
+            <div class="avatar">U</div>
+            <textarea class="comment-input" placeholder="Share your thoughts about this episode... (Spoiler tag available)"></textarea>
+          </div>
+          <div class="comment-actions">
+            <button class="btn-comment-cancel">Cancel</button>
+            <button class="btn-comment-post">Post</button>
+          </div>
+          <div class="comment-divider"></div>
+          <div class="comment-count">4,231 Comments</div>
+          <div id="comment-list"></div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="stab-content" id="tab-info">
+        <div style="padding:16px;">
+          <img src="https://cdn.myanimelist.net/images/anime/1286/99889l.jpg" style="width:100%;border-radius:10px;margin-bottom:14px;" alt="Demon Slayer" />
+          <div style="font-family:var(--font-d);font-size:18px;font-weight:700;margin-bottom:6px;">Demon Slayer: Kimetsu no Yaiba</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+            A young boy becomes a demon slayer after his family is slaughtered and his sister is turned into a demon. Set in Taisho-era Japan, Tanjiro Kamado and his companions fight to protect humanity.
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-dim);">Studio</span><span>ufotable</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-dim);">Status</span><span style="color:#4dcc99;">Completed</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-dim);">Episodes</span><span>12 / 12</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-dim);">Aired</span><span>2024</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-dim);">Score</span><span style="color:var(--accent2);">★ 9.1</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-dim);">Genre</span><span>Action, Supernatural</span></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div><!-- end watch-layout -->
+
+  <!-- ════ YOU MAY ALSO LIKE ════ -->
+  <div class="full-width-section">
+    <div class="full-sec-title">You May Also Like</div>
+    <div class="anime-rec-grid" id="you-like-grid"></div>
+  </div>
+
+<script src="../js/videoplay.js"></script>
+</body>
+</html>

@@ -137,4 +137,12 @@
         tag.classList.add('active');
       });
     });
+
+    let watchbtn = document.querySelectorAll(".btn-watch");
+
+    watchbtn.forEach(btn =>{
+      btn.addEventListener("click",function(){
+        window.location.href = "pages/videoPlay.html";
+      });
+    })
  
