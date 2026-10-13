@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Anime {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  title         String
+  titleJapanese String?
+  studio        String?
+  year          Int?
+  status        String    @default("FINISHED") // RELEASING | FINISHED
+  genres        Json      // string[]
+  synopsis      String?
+  poster        String?   // image URL (fill from AniList later)
+  banner        String?
+  anilistId     Int?
+  episodes      Episode[]
+  createdAt     DateTime  @default(now())
+}
+
+model Episode {
+  id        String   @id @default(cuid())
+  animeId   String
+  number    Int
+  title     String?
+  duration  Int?     // minutes
+  thumbnail String?
+  anime     Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  sources   Source[]
+
+  @@unique([animeId, number])
+}
+
+model Source {
+  id        String  @id @default(cuid())
+  episodeId String
+  kind      String  // "hls" | "youtube"
+  url       String? // HLS manifest URL
+  youtubeId String? // embed ID
+  type      String  @default("sub") // sub | dub
+  quality   String?
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+}
