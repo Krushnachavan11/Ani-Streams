@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AniStream
 
-## Getting Started
+A full-stack anime streaming platform built with **Next.js 16**, featuring HLS video playback, resumable watching, and a database-driven catalog.
 
-First, run the development server:
+**Live demo:** https://ani-streams-vcnf.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![Home](docs/screenshots/home.png)
+
+| Anime detail | Watch page |
+|---|---|
+| ![Detail](docs/screenshots/detail.png) | ![Watch](docs/screenshots/watch.png) |
+
+## Features
+
+- **Home page** with an auto-rotating hero slider, a "Now Airing" row and a poster grid
+- **Anime detail pages** with metadata, genres and an episode grid
+- **HLS streaming** with `hls.js` (native playback on Safari) and YouTube embed support
+- **Continue Watching**: playback progress is saved and resumes where you left off
+- **My List**: bookmark anime, stored in the browser
+- **REST API** for anime, episodes and video sources
+- **Catalog tooling**: CLI scripts that import anime from the AniList API and convert/upload video to HLS
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router, Cache Components), React, TypeScript |
+| Styling | Tailwind CSS |
+| Database | PostgreSQL (Neon) with Prisma ORM |
+| Video | HLS (ffmpeg), hls.js, S3-compatible object storage (Backblaze B2) |
+| Data source | AniList GraphQL API (metadata and artwork) |
+| Hosting | Vercel |
+
+## Architecture
+
+```
+Browser ──► Next.js on Vercel ──► Neon Postgres (anime, episodes, sources)
+   │              │
+   │              └─ cached server components ("use cache", revalidated every minute)
+   │
+   └──► HLS stream (.m3u8 + .ts segments) from Backblaze B2 via hls.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Pages are prerendered and cached with `"use cache"`, so most requests never hit the database.
+- A `Source` table stores each episode's video as a link (HLS URL or YouTube ID), so the player is independent of where the video is hosted.
+- Watch progress and the watchlist live in `localStorage`, so no login is needed.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Data model
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`Anime` → has many `Episode` → has many `Source` (kind: `hls` | `youtube`, url, type, quality)
 
-## Learn More
+## Run locally
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/YOUR-USERNAME/anime-stream.git
+cd anime-stream
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create `.env` with your Postgres connection strings:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+DATABASE_URL="postgresql://..."
+DIRECT_URL="postgresql://..."
+```
 
-## Deploy on Vercel
+```bash
+npx prisma migrate dev
+npx prisma db seed
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Catalog scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# import anime (metadata, artwork, episodes) from AniList
+npx tsx scripts/add-popular.ts --titles "Death Note, Naruto"
+
+# convert a folder of videos to HLS and link them to episodes
+npx tsx scripts/add-folder.ts <slug> "<folder>"
+
+# upload converted HLS to object storage and update the database
+npx tsx scripts/publish-hls.ts <slug> [episode]
+```
+
+## Roadmap
+
+Search and genre browsing, subtitles and quality selection, user accounts with synced watchlists.
+
+## Notes
+
+This is a portfolio project. Anime metadata and artwork come from AniList. Video content is limited to trailers and sample or self-owned clips. It is not affiliated with any anime studio or streaming service.
